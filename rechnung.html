@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+
+<head>
+	<meta charset="utf-8">
+	<title>Bill2Mobile</title>
+
+
+	<!-- web app /-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="shortcut icon" sizes="196x196" href="icon-196x196.png">
+	<link rel="apple-touch-icon" sizes="196x196" href="icon-196x196.png">
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.js"></script>
+	<script src="cordova.js"></script>
+</head>
+
+<body>
+	<div data-role="page" data-theme="a">
+		<div ng-controller="MyController">
+			<div data-role="header" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li>
+							<button data-inline="true">Kontoliste</button>
+						</li>
+						<li>Kunde {{account.account_number}}</li>
+						<li>bloom</li>
+					</ul>
+				</div>
+			</div>
+			<div data-role="content">
+				<p>Rechnungsadresse</p>
+				<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
+					<p>{{ account.bill_title }} {{ account.bill_fname }} {{ account.bill_lname }}</p>
+					<p>{{ account.bill_address1 }}</p>
+					<p>{{ account.bill_address2 }}</p>
+					<p>{{ account.bill_address3 }}</p>
+					<p>{{ account.bill_zip }} {{ account.bill_city }}</p>
+				</div>
+
+
+				<p>Rechnungssaldo</p>
+				<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
+					Offener Gesamtbetrag {{account.open_balance}} {{account.currency}}
+					<div class="ui-nodisc-icon ">
+						<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext ui-btn-inline">Info</a>
+					</div>
+				</div>
+
+				<p>Laufende Kosten</p>
+				<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+					<li>
+						<a href="#">Nutzungsgebühren  {{account.unbilled_usage}} {{account.currency}}</a>
+					</li>
+				</ul>
+			</div>
+			<p>Rechnungen</p>
+			<div ng-controller="invoices">
+
+				<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+
+					<li ng-repeat="invoice in invoices" onclick="alert('click');">
+						<a href="#">Rechnungsdatum: {{invoice.bill_date}}
+	Rechnungsbetrag:					{{invoice.open_balance}} {{invoice.currency}}
+	Zahlbar bis: 					{{invoice.due_date}}</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href "#">Meine Rechnung</a>
+					</li>
+					<li><a href "#">Einstellung</a>
+					</li>
+					<li><a href "#">Hilfe</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var app = angular.module('myApp', []);
+			app.controller('MyController', function($scope) {
+				$scope.account = {
+					account_number: "0882829-1",
+					currency: "CHF",
+					bill_lname: "L'Hote",
+					bill_fname: "Arnaud",
+					bill_title: "M.",
+					bill_address1: "Stationstr.35",
+					bill_address2: "",
+					bill_address3: "",
+					bill_zip: "8606",
+					bill_city: "Nänikon",
+					open_balance: "19.85",
+					unbilled_usage: "1.85"
+				};
+			});
+			app.controller('invoices', function($scope) {
+					$scope.invoices = [{
+						currency: "CHF",
+						bill_ref_no: "123456",
+						bill_date: "Juni 2014",
+						open_balance: "19.85",
+						due_date: "Open"
+					}, {
+						currency: "CHF",
+						bill_ref_no: "123450",
+						bill_date: "März 2014",
+						open_balance: "1.85",
+						due_date: "Open"
+					}];
+			});
+		</script>
+</body>
+
+</html>
