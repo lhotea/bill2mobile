@@ -105,7 +105,7 @@
 				.config(function(RestangularProvider) {
 					RestangularProvider.setBaseUrl('https://bill2mobile.upc.ch:443/bill2mobileserver/');
 				});
-			app.controller('MyController', function($scope, Restangular) {
+			app.controller('MyController',function($scope, $http,Restangular) {
 
 				var resources = Restangular.all('resources');
 				var request = {
@@ -120,7 +120,8 @@
 
 				$http({
 					method: 'PUT',
-					url: 'https://bill2mobile.upc.ch:443/bill2mobileserver/resources/getCustomer'
+					url: 'https://bill2mobile.upc.ch:443/bill2mobileserver/resources/getCustomer',
+					data: request
 				}).
 				success(function(data, status, headers, config) {
 					// this callback will be called asynchronously
