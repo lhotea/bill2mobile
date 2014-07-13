@@ -19,5 +19,5 @@
 <gap:platform name="android" />
 <preference name="phonegap-version" value="3.3.0" />
 <preference name="fullscreen" value="true" />
-<access origin="http://upc.ch" subdomains="true" />
+<access origin="https://upc.ch" subdomains="true" />
 </widget>
