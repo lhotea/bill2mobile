@@ -38,6 +38,9 @@
 				</div>
 			</div>
 			<div data-role="content">
+				<div id="request">{{request}}</div>
+				<div id="response">{{response}}</div>
+				
 				<p>Rechnungsadresse</p>
 				<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
 					<p>{{ account.bill_title }} {{ account.bill_fname }} {{ account.bill_lname }}</p>
@@ -99,9 +102,12 @@
 				
 				var resources = Restangular.all('resources');
 				var request = { language: 'en', login: {username: 'arnaud.lhote@hispeed.ch', password: 'minisoph70'}, version: '1.1.7'};
-				var customer = resources.one("getCustomer").customPUT(request);
+				$scope.request = JSON.stringify(request);
 				
-				var myaccount = customer.accounts[0]; 
+				var customer = resources.one("getCustomer").customPUT(request);
+				$scope.response = JSON.stringify(customer);
+				
+				var myaccount = {id: "12345-1"}; 
 				$scope.account = {
 					account_number: myaccount.id,
 					currency: "CHF",
