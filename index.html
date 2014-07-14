@@ -45,8 +45,7 @@
 				</div>
 			</div>
 			<div data-role="content">
-				<div id="request">{{request}}</div>
-				<div id="response">{{response}}</div>
+				
 
 				<p>Rechnungsadresse</p>
 				<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
@@ -72,20 +71,23 @@
 						<a href="#">Nutzungsgebühren  {{account.unbilled_usage}} {{account.currency}}</a>
 					</li>
 				</ul>
-			</div>
+			
 			<p>Rechnungen</p>
-			<div ng-controller="invoices">
+			
 
 				<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
 
 					<li ng-repeat="invoice in invoices" onclick="alert('click');">
-						<a href="#">Rechnungsdatum: {{invoice.bill_date}}
-	Rechnungsbetrag:					{{invoice.open_balance}} {{invoice.currency}}
-	Zahlbar bis: 					{{invoice.due_date}}</a>
+						<a href="#">Rechnungsdatum: {{invoice.statementDate2}}
+	Rechnungsbetrag:					{{invoice.balanceDue}} CHF
+	Zahlbar bis: 					{{invoice.dueDate}}</a>
 					</li>
 				</ul>
 
 			</div>
+			
+			<div id="request">Request:<br/>{{request}}</div>
+			<div id="response">Response:<br/>{{response}}</div>
 		</div>
 
 		<div data-role="footer" data-position="fixed">
@@ -127,22 +129,8 @@
 					// this callback will be called asynchronously
 					// when the response is available
 					$scope.response = JSON.stringify(data);
-
-				}).
-				error(function(data, status, headers, config) {
-					// called asynchronously if an error occurs
-					// or server returns response with an error status.
-					$scope.response = JSON.stringify(data);
-
-				});
-
-				//var customer = resources.one("getCustomer").customPUT(request);
-				//$scope.response = JSON.stringify(customer);
-
-				var myaccount = {
-					id: "12345-1"
-				};
-				$scope.account = {
+					var myaccount = data.customer.accounts[0];
+/*				$scope.account = {
 					account_number: myaccount.id,
 					currency: "CHF",
 					bill_lname: "L'Hote",
@@ -156,8 +144,41 @@
 					open_balance: "19.85",
 					unbilled_usage: "1.85"
 				};
+					
+*/
+				$scope.account = {
+					account_number: myaccount.id,
+					currency: "CHF",
+					bill_lname: myaccount.lastName,
+					bill_fname: myaccount.firstName,
+					bill_title: myaccount.title,
+					bill_address1: myaccount.address,
+					bill_address2: "",
+					bill_address3: "",
+					bill_zip: myaccount.zip,
+					bill_city: myaccount.city,
+					open_balance: myaccount.balanceDue,
+					unbilled_usage: myaccount.unbilledDue
+				};
+				$scope.invoices = myaccount.invoices;
+
+				}).
+				error(function(data, status, headers, config) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+					$scope.response = JSON.stringify(data);
+
+				});
+
+				//var customer = resources.one("getCustomer").customPUT(request);
+				//$scope.response = JSON.stringify(customer);
+
+				/*var myaccount = {
+					id: "12345-1"
+				};
+				*/
 			});
-			app.controller('invoices', function($scope) {
+/*			app.controller('invoices', function($scope) {
 				$scope.invoices = [{
 					currency: "CHF",
 					bill_ref_no: "123456",
@@ -172,6 +193,7 @@
 					due_date: "Open"
 				}];
 			});
+*/
 		</script>
 </body>
 
