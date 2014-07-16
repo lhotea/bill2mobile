@@ -31,8 +31,30 @@
 </head>
 
 <body>
-	<div data-role="page" data-theme="a">
-		<div ng-controller="MyController">
+	<div ng-controller="sessionController as sc">
+		<div data-role="page" id="login" data-url="login" data-theme="a" ng-controller="loginController">
+
+			<div data-role="content">
+				<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="credentials">
+					<p>Login:
+						<input type="text" ng-model="username"></input>
+					</p>
+					<p>Password:
+						<input type="password" ng-model="password"></input>
+					</p>
+					<a ng-click="login()" ng-href="#account" data-role="button" data-icon="arrow-r">Login</a>
+				</div>
+			</div>
+			<div id="request">Request:
+				<br/>{{request}}
+			</div>
+			<div id="response">Response:
+				<br/>{{response}}
+			</div>
+
+		</div>
+		<div data-role="page" id="account" data-url="account" data-theme="a" ng-controller="accountController">
+
 			<div data-role="header" data-position="fixed">
 				<div data-role="navbar">
 					<ul>
@@ -44,156 +66,126 @@
 					</ul>
 				</div>
 			</div>
-			<div data-role="content">
-				
 
-				<p>Rechnungsadresse</p>
-				<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
-					<p>{{ account.bill_title }} {{ account.bill_fname }} {{ account.bill_lname }}</p>
-					<p>{{ account.bill_address1 }}</p>
-					<p>{{ account.bill_address2 }}</p>
-					<p>{{ account.bill_address3 }}</p>
-					<p>{{ account.bill_zip }} {{ account.bill_city }}</p>
+			<p>Rechnungsadresse</p>
+			<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
+				<p>{{ account.bill_title }} {{ account.bill_fname }} {{ account.bill_lname }}</p>
+				<p>{{ account.bill_address1 }}</p>
+				<p>{{ account.bill_address2 }}</p>
+				<p>{{ account.bill_address3 }}</p>
+				<p>{{ account.bill_zip }} {{ account.bill_city }}</p>
+			</div>
+
+
+			<p>Rechnungssaldo</p>
+			<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
+				Offener Gesamtbetrag {{account.open_balance}} {{account.currency}}
+				<div class="ui-nodisc-icon ">
+					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext ui-btn-inline">Info</a>
 				</div>
+			</div>
 
+			<p>Laufende Kosten</p>
+			<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+				<li>
+					<a href="#">Nutzungsgebühren  {{account.unbilled_usage}} {{account.currency}}</a>
+				</li>
+			</ul>
 
-				<p>Rechnungssaldo</p>
-				<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
-					Offener Gesamtbetrag {{account.open_balance}} {{account.currency}}
-					<div class="ui-nodisc-icon ">
-						<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext ui-btn-inline">Info</a>
-					</div>
-				</div>
-
-				<p>Laufende Kosten</p>
-				<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-					<li>
-						<a href="#">Nutzungsgebühren  {{account.unbilled_usage}} {{account.currency}}</a>
-					</li>
-				</ul>
-			
 			<p>Rechnungen</p>
-			
 
-				<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
 
-					<li ng-repeat="invoice in invoices" onclick="alert('click');">
-						<a href="#">Rechnungsdatum: {{invoice.statementDate2}}
+			<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+				<li ng-repeat="invoice in invoices">
+					<a ng-href="#">Rechnungsdatum: {{invoice.statementDate2}}
 	Rechnungsbetrag:					{{invoice.balanceDue}} CHF
 	Zahlbar bis: 					{{invoice.dueDate}}</a>
-					</li>
-				</ul>
+				</li>
+			</ul>
 
-			</div>
-			
-			<div id="request">Request:<br/>{{request}}</div>
-			<div id="response">Response:<br/>{{response}}</div>
-		</div>
 
-		<div data-role="footer" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a href "#">Meine Rechnung</a>
-					</li>
-					<li><a href "#">Einstellung</a>
-					</li>
-					<li><a href "#">Hilfe</a>
-					</li>
-				</ul>
+
+			<div id="cred">{{username}}:{{password}}</div>
+			<div id="request">Request:
+				<br/>{{request}}
+			</div>
+			<div id="response">Response:
+				<br/>{{response}}
+			</div>
+
+
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href "#">Meine Rechnung</a>
+						</li>
+						<li><a href "#">Einstellung</a>
+						</li>
+						<li><a href "#">Hilfe</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
+</div>
 		<script type="text/javascript">
-			var app = angular.module('myApp', ['restangular'])
-				.config(function(RestangularProvider) {
-					RestangularProvider.setBaseUrl('https://bill2mobile.upc.ch:443/bill2mobileserver/');
-				});
-			app.controller('MyController',function($scope, $http,Restangular) {
+			var app = angular.module('myApp', []);
+			app.controller('sessionController', function($scope, $http) {});
+			app.controller('loginController', function($scope, $http) {
 
-				var resources = Restangular.all('resources');
-				var request = {
-					language: 'en',
-					login: {
-						username: 'arnaud.lhote@hispeed.ch',
-						password: 'minisoph70'
-					},
-					version: '1.1.7'
+				$scope.login = function() {
+					var request = {
+						language: 'en',
+						login: {
+							username: $scope.username,
+							password: $scope.password
+						},
+						version: '1.1.7'
+					};
+
+					$scope.request = JSON.stringify(request);
+					$scope.$parent.request = $scope.request;
+
+					$http({
+						method: 'PUT',
+						url: 'https://bill2mobile.upc.ch:443/bill2mobileserver/resources/getCustomer',
+						data: request
+					}).
+					success(function(data, status, headers, config) {
+						// this callback will be called asynchronously
+						// when the response is available
+
+						$scope.response = JSON.stringify(data);
+						$scope.$parent.response = $scope.response;
+						var myaccount = angular.isDefined(data.customer) ? data.customer.accounts[0] : {};
+						$scope.$parent.account = {
+							account_number: myaccount.id,
+							currency: "CHF",
+							bill_lname: myaccount.lastName,
+							bill_fname: myaccount.firstName,
+							bill_title: myaccount.title,
+							bill_address1: myaccount.address,
+							bill_address2: "",
+							bill_address3: "",
+							bill_zip: myaccount.zip,
+							bill_city: myaccount.city,
+							open_balance: myaccount.balanceDue,
+							unbilled_usage: myaccount.unbilledDue
+						};
+						$scope.$parent.invoices = myaccount.invoices;
+
+					}).
+					error(function(data, status, headers, config) {
+						// called asynchronously if an error occurs
+						// or server returns response with an error status.
+						$scope.response = JSON.stringify(data);
+					});
+
 				};
-				$scope.request = JSON.stringify(request);
-
-				$http({
-					method: 'PUT',
-					url: 'https://bill2mobile.upc.ch:443/bill2mobileserver/resources/getCustomer',
-					data: request
-				}).
-				success(function(data, status, headers, config) {
-					// this callback will be called asynchronously
-					// when the response is available
-					$scope.response = JSON.stringify(data);
-					var myaccount = data.customer.accounts[0];
-/*				$scope.account = {
-					account_number: myaccount.id,
-					currency: "CHF",
-					bill_lname: "L'Hote",
-					bill_fname: "Arnaud",
-					bill_title: "M.",
-					bill_address1: "Stationstr.35",
-					bill_address2: "",
-					bill_address3: "",
-					bill_zip: "8606",
-					bill_city: "Nänikon",
-					open_balance: "19.85",
-					unbilled_usage: "1.85"
-				};
-					
-*/
-				$scope.account = {
-					account_number: myaccount.id,
-					currency: "CHF",
-					bill_lname: myaccount.lastName,
-					bill_fname: myaccount.firstName,
-					bill_title: myaccount.title,
-					bill_address1: myaccount.address,
-					bill_address2: "",
-					bill_address3: "",
-					bill_zip: myaccount.zip,
-					bill_city: myaccount.city,
-					open_balance: myaccount.balanceDue,
-					unbilled_usage: myaccount.unbilledDue
-				};
-				$scope.invoices = myaccount.invoices;
-
-				}).
-				error(function(data, status, headers, config) {
-					// called asynchronously if an error occurs
-					// or server returns response with an error status.
-					$scope.response = JSON.stringify(data);
-
-				});
-
-				//var customer = resources.one("getCustomer").customPUT(request);
-				//$scope.response = JSON.stringify(customer);
-
-				/*var myaccount = {
-					id: "12345-1"
-				};
-				*/
 			});
-/*			app.controller('invoices', function($scope) {
-				$scope.invoices = [{
-					currency: "CHF",
-					bill_ref_no: "123456",
-					bill_date: "Juni 2014",
-					open_balance: "19.85",
-					due_date: "Open"
-				}, {
-					currency: "CHF",
-					bill_ref_no: "123450",
-					bill_date: "März 2014",
-					open_balance: "1.85",
-					due_date: "Open"
-				}];
+			app.controller('accountController', function($scope) {
+
 			});
-*/
 		</script>
 </body>
 
