@@ -67,6 +67,8 @@
 				</div>
 			</div>
 
+		<div data-role="content">
+
 			<p>Rechnungsadresse</p>
 			<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
 				<p>{{ account.bill_title }} {{ account.bill_fname }} {{ account.bill_lname }}</p>
@@ -78,7 +80,7 @@
 
 
 			<p>Rechnungssaldo</p>
-			<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
+			<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillTotal">
 				Offener Gesamtbetrag {{account.open_balance}} {{account.currency}}
 				<div class="ui-nodisc-icon ">
 					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext ui-btn-inline">Info</a>
@@ -97,7 +99,7 @@
 
 			<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
 				<li ng-repeat="invoice in invoices">
-					<a ng-href="#">Rechnungsdatum: {{invoice.statementDate2}}
+					<a href="#">Rechnungsdatum: {{invoice.statementDate2}}
 	Rechnungsbetrag:					{{invoice.balanceDue}} CHF
 	Zahlbar bis: 					{{invoice.dueDate}}</a>
 				</li>
@@ -112,7 +114,7 @@
 			<div id="response">Response:
 				<br/>{{response}}
 			</div>
-
+			</div>
 
 			<div data-role="footer" data-position="fixed">
 				<div data-role="navbar">
