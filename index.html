@@ -7,12 +7,17 @@
 
 
 	<!-- web app /-->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<link rel="shortcut icon" sizes="196x196" href="icon-196x196.png">
 	<link rel="apple-touch-icon" sizes="196x196" href="icon-196x196.png">
+
+	<!-- going to the future introducing ionic /-->
+
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<link href="lib/vendor/ionic/css/ionic.css" rel="stylesheet">
+	<script src="lib/vendor/ionic/js/ionic.bundle.js"></script>
 
 	<!-- link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css" /-->
 	<!-- script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -20,90 +25,111 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.js"></script>
 	<script src="http://cdn.jsdelivr.net/restangular/latest/restangular.min.js"></script>
 	<script src="http://cdn.jsdelivr.net/lodash/2.1.0/lodash.compat.min.js"></script>
-<script src="cordova.js"></script /-->
-	<link rel="stylesheet" href="js/vendor/jquery.mobile-1.4.1.min.css" />
-	<script src="js/vendor/jquery-1.9.1.min.js"></script>
-	<script src="js/vendor/jquery.mobile-1.4.1.min.js"></script>
-	<script src="js/vendor/angular.js"></script>
-	<script src="js/vendor/restangular.min.js"></script>
-	<script src="js/vendor/lodash.compat.min.js"></script>
+    <script src="cordova.js"></script /-->
+	<!--link rel="stylesheet" href="js/vendor/jquery.mobile-1.4.1.min.css" /-->
+	<!--script src="js/vendor/jquery-1.9.1.min.js"></script>
+	<!--script src="js/vendor/jquery.mobile-1.4.1.min.js"></script /-->
+	<!--script src="lib/vendor/ionic/js/angular.js"></script /-->
+	<!-- script src="js/vendor/restangular.min.js"></script>
+	<script src="js/vendor/lodash.compat.min.js"></script /-->
 
 </head>
 
-<body>
-	<div ng-controller="sessionController as sc">
-		<div data-role="page" id="login" data-url="login" data-theme="a" ng-controller="loginController">
+<body >
 
-			<div data-role="content">
-				<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="credentials">
-					<p>Login:
-						<input type="text" ng-model="username"></input>
-					</p>
-					<p>Password:
-						<input type="password" ng-model="password"></input>
-					</p>
-					<a ng-click="login()" ng-href="#account" data-role="button" data-icon="arrow-r">Login</a>
+<div ng-controller="sessionController">
+	
+		
+	<ion-nav-view animation="slide-left-right" >
+	</ion-nav-view>
+	
+</div>	
+	<script id="login.html" type="text/ng-template">
+		<ion-view title="login">
+			
+				<div class="list">
+					<label class="item item-input">
+						<span class="input-label">Username</span>
+						<input type="text" ng-model="cred.username">
+					</label>
+					<label class="item item-input">
+						<span class="input-label">Password</span>
+						<input type="password" ng-model="cred.password">
+					</label>
 				</div>
-			</div>
-			<div id="request">Request:
-				<br/>{{request}}
-			</div>
-			<div id="response">Response:
-				<br/>{{response}}
-			</div>
 
-		</div>
-		<div data-role="page" id="account" data-url="account" data-theme="a" ng-controller="accountController">
+				<button ng-click="login()" class="button button-block button-light">
+					Login
+				</button>
 
-			<div data-role="header" data-position="fixed">
-				<div data-role="navbar">
-					<ul>
-						<li>
-							<button data-inline="true">Kontoliste</button>
-						</li>
-						<li>Kunde {{account.account_number}}</li>
-						<li>bloom</li>
-					</ul>
+				<div id="request">Request:
+					<br/>{{request}}
 				</div>
-			</div>
+				<div id="response">Response:
+					<br/>{{response}}
+				</div>
+			
 
-		<div data-role="content">
+		</ion-view>
+		</script>
+	<script id="account.html" type="text/ng-template">
 
+		<ion-view title="account">
+			
+<ion-header-bar align-title="left" class="bar-light">
+<div class="buttons">
+    <button class="button" >Kontoliste</button>
+  </div>
+  <h1 class="title">{{account.account_number}}</h1>
+  <div class="buttons">
+    <button class="button">Bloom</button>
+  </div>
+</ion-header-bar>
+
+<ion-content>
+
+	<ion-list>
+	<ion-item>
 			<p>Rechnungsadresse</p>
-			<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillAddress">
+			<div class="list card">
+			<div class="item">
 				<p>{{ account.bill_title }} {{ account.bill_fname }} {{ account.bill_lname }}</p>
 				<p>{{ account.bill_address1 }}</p>
 				<p>{{ account.bill_address2 }}</p>
 				<p>{{ account.bill_address3 }}</p>
 				<p>{{ account.bill_zip }} {{ account.bill_city }}</p>
 			</div>
-
+			</div>
+    </ion-item>
+	<ion-item>
 
 			<p>Rechnungssaldo</p>
-			<div data-theme="a" data-form="ui-body-a" class="ui-body ui-body-a ui-corner-all" id="BillTotal">
-				Offener Gesamtbetrag {{account.open_balance}} {{account.currency}}
-				<div class="ui-nodisc-icon ">
-					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-info ui-btn-icon-notext ui-btn-inline">Info</a>
-				</div>
-			</div>
+				
+				
+			<div class="list card">
+				
+					<a href="#" class="item item-icon-right">Offener Gesamtbetrag {{account.open_balance}} {{account.currency}} <i class="icon ion-help-circled">Info</i> </a>
+</div>				
+    </ion-item>
+	<ion-item>
 
 			<p>Laufende Kosten</p>
-			<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-				<li>
-					<a href="#">Nutzungsgebühren  {{account.unbilled_usage}} {{account.currency}}</a>
-				</li>
-			</ul>
+				<div class="list card">
 
+	<a href="#" class="item item-icon-right">Nutzungsgebühren  {{account.unbilled_usage}} {{account.currency}} <i class="icon ion-arrow-right-c"></i></a>
+</div>
+    </ion-item>
+	<ion-item>
 			<p>Rechnungen</p>
+				<div class="list card">
 
-
-			<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-				<li ng-repeat="invoice in invoices">
-					<a href="#">Rechnungsdatum: {{invoice.statementDate2}}
+	<a href="#" class="item item-icon-right" ng-repeat="invoice in invoices" >Rechnungsdatum: {{invoice.statementDate2}}
 	Rechnungsbetrag:					{{invoice.balanceDue}} CHF
-	Zahlbar bis: 					{{invoice.dueDate}}</a>
-				</li>
-			</ul>
+	Zahlbar bis: 					{{invoice.dueDate}} 	<i class="icon ion-arrow-right-c"></i></a>
+
+</div>
+		</ion-item>
+	</ion-list>
 
 
 
@@ -114,81 +140,103 @@
 			<div id="response">Response:
 				<br/>{{response}}
 			</div>
-			</div>
+</ion-content>
+		
 
-			<div data-role="footer" data-position="fixed">
-				<div data-role="navbar">
-					<ul>
-						<li><a href "#">Meine Rechnung</a>
-						</li>
-						<li><a href "#">Einstellung</a>
-						</li>
-						<li><a href "#">Hilfe</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-</div>
-		<script type="text/javascript">
-			var app = angular.module('myApp', []);
-			app.controller('sessionController', function($scope, $http) {});
-			app.controller('loginController', function($scope, $http) {
+<ion-footer-bar align-title="left" class="bar-light">
+ <div class="tabs tabs-icon-top">
+    <a class="tab-item" href="#">
+      <i class="icon ion-social-usd"></i>
+      Meine Rechnungen
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-android-mixer"></i>
+      Einstellungen
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-help-circled"></i>
+      Hilfe
+    </a>
+  </div>
+</ion-footer-bar>
+		</ion-view>
+	</script>
+	<script type="text/javascript">
+		var app = angular.module('myApp', ['ionic']);
+		app.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+  .state('login', {
+    url: '/',
+    templateUrl: 'login.html',
+	  controller: 'loginController'
+  })
+    .state('account', {
+    url: '/account',
+    templateUrl: 'account.html',
+	controller: 'accountController'
+  });
+  $urlRouterProvider.otherwise('/');
+  
+});
+		
+		app.controller('sessionController', function($scope, $http) {});
+		app.controller('loginController', function($scope, $http) {
 
-				$scope.login = function() {
-					var request = {
-						language: 'en',
-						login: {
-							username: $scope.username,
-							password: $scope.password
-						},
-						version: '1.1.7'
-					};
-
-					$scope.request = JSON.stringify(request);
-					$scope.$parent.request = $scope.request;
-
-					$http({
-						method: 'PUT',
-						url: 'https://bill2mobile.upc.ch:443/bill2mobileserver/resources/getCustomer',
-						data: request
-					}).
-					success(function(data, status, headers, config) {
-						// this callback will be called asynchronously
-						// when the response is available
-
-						$scope.response = JSON.stringify(data);
-						$scope.$parent.response = $scope.response;
-						var myaccount = angular.isDefined(data.customer) ? data.customer.accounts[0] : {};
-						$scope.$parent.account = {
-							account_number: myaccount.id,
-							currency: "CHF",
-							bill_lname: myaccount.lastName,
-							bill_fname: myaccount.firstName,
-							bill_title: myaccount.title,
-							bill_address1: myaccount.address,
-							bill_address2: "",
-							bill_address3: "",
-							bill_zip: myaccount.zip,
-							bill_city: myaccount.city,
-							open_balance: myaccount.balanceDue,
-							unbilled_usage: myaccount.unbilledDue
-						};
-						$scope.$parent.invoices = myaccount.invoices;
-
-					}).
-					error(function(data, status, headers, config) {
-						// called asynchronously if an error occurs
-						// or server returns response with an error status.
-						$scope.response = JSON.stringify(data);
-					});
-
+			$scope.login = function() {
+				var request = {
+					language: 'en',
+					login: {
+						username: $scope.cred.username,
+						password: $scope.cred.password
+					},
+					version: '1.1.7'
 				};
-			});
-			app.controller('accountController', function($scope) {
 
-			});
-		</script>
+				$scope.request = JSON.stringify(request);
+				$scope.$parent.request = $scope.request;
+
+				$http({
+					method: 'PUT',
+					url: 'https://bill2mobile.upc.ch:443/bill2mobileserver/resources/getCustomer',
+					data: request
+				}).
+				success(function(data, status, headers, config) {
+					// this callback will be called asynchronously
+					// when the response is available
+
+					$scope.response = JSON.stringify(data);
+					$scope.$parent.response = $scope.response;
+					var myaccount = angular.isDefined(data.customer) ? data.customer.accounts[0] : {};
+					$scope.$parent.account = {
+						account_number: myaccount.id,
+						currency: "CHF",
+						bill_lname: myaccount.lastName,
+						bill_fname: myaccount.firstName,
+						bill_title: myaccount.title,
+						bill_address1: myaccount.address,
+						bill_address2: "",
+						bill_address3: "",
+						bill_zip: myaccount.zip,
+						bill_city: myaccount.city,
+						open_balance: myaccount.balanceDue,
+						unbilled_usage: myaccount.unbilledDue
+					};
+					$scope.$parent.invoices = myaccount.invoices;
+                    window.location.href ="#/account";
+				}).
+				error(function(data, status, headers, config) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+					$scope.response = JSON.stringify(data);
+				});
+              
+			};
+		});
+		app.controller('accountController', function($scope) {
+
+		});
+	
+	</script>
+
 </body>
-
 </html>
