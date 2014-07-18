@@ -1,0 +1,87 @@
+
+		<ion-view title="account">
+			
+<ion-header-bar align-title="left" class="bar-light">
+<div class="buttons">
+    <button class="button" >Kontoliste</button>
+  </div>
+  <h1 class="title">{{account.account_number}}</h1>
+  <div class="buttons">
+    <button class="button">Bloom</button>
+  </div>
+</ion-header-bar>
+
+<ion-content>
+
+	<ion-list>
+	<ion-item>
+			<p>Rechnungsadresse</p>
+			<div class="list card">
+			<div class="item">
+				<p>{{ account.bill_title }} {{ account.bill_fname }} {{ account.bill_lname }}</p>
+				<p>{{ account.bill_address1 }}</p>
+				<p>{{ account.bill_address2 }}</p>
+				<p>{{ account.bill_address3 }}</p>
+				<p>{{ account.bill_zip }} {{ account.bill_city }}</p>
+			</div>
+			</div>
+    </ion-item>
+	<ion-item>
+
+			<p>Rechnungssaldo</p>
+				
+				
+			<div class="list card">
+				
+					<a href="#" class="item item-icon-right">Offener Gesamtbetrag {{account.open_balance}} {{account.currency}} <i class="icon ion-help-circled">Info</i> </a>
+</div>				
+    </ion-item>
+	<ion-item>
+
+			<p>Laufende Kosten</p>
+				<div class="list card">
+
+	<a href="#" class="item item-icon-right">Nutzungsgebühren  {{account.unbilled_usage}} {{account.currency}} <i class="icon ion-arrow-right-c"></i></a>
+</div>
+    </ion-item>
+	<ion-item>
+			<p>Rechnungen</p>
+				<div class="list card">
+
+	<a href="#" class="item item-icon-right" ng-repeat="invoice in invoices" >Rechnungsdatum: {{invoice.statementDate2}}
+	Rechnungsbetrag:					{{invoice.balanceDue}} CHF
+	Zahlbar bis: 					{{invoice.dueDate}} 	<i class="icon ion-arrow-right-c"></i></a>
+
+</div>
+		</ion-item>
+	</ion-list>
+
+
+
+			<div id="cred">{{username}}:{{password}}</div>
+			<div id="request">Request:
+				<br/>{{request}}
+			</div>
+			<div id="response">Response:
+				<br/>{{response}}
+			</div>
+</ion-content>
+		
+
+<ion-footer-bar align-title="left" class="bar-light">
+ <div class="tabs tabs-icon-top">
+    <a class="tab-item" href="#">
+      <i class="icon ion-social-usd"></i>
+      Meine Rechnungen
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-android-mixer"></i>
+      Einstellungen
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-help-circled"></i>
+      Hilfe
+    </a>
+  </div>
+</ion-footer-bar>
+		</ion-view>
