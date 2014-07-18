@@ -107,11 +107,32 @@ app.config(function($stateProvider, $urlRouterProvider) {
               
 			};
 		});
-		app.controller('accountController', function($scope, customer, debug) {
+		app.controller('accountController', function($scope, $ionicModal, customer, debug) {
          $scope.account = customer.account;
 		 $scope.invoices = customer.account.invoices;
 		 $scope.request = debug.request;
 		 $scope.response = debug.response;
+		 
+		 
+		 $ionicModal.fromTemplateUrl('partials/invoiceDetail.html', {
+		 scope: $scope,
+		 animation: 'slide-in-right'})
+		 .then ( function(modal) { 
+		  $scope.modal = modal
+		 });
+		 
+		 $scope.openModal = function () {
+		  $scope.modal.show();
+		 };
+
+		 $scope.closeModal = function () {
+		  $scope.modal.hide();
+		 };
+
+		 $scope.$on ( '$destroy', function () {
+		  $scope.modal.remove();
+		 });
+
 		 
 		});
 	

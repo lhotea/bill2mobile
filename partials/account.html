@@ -46,9 +46,9 @@
 			<p>Rechnungen</p>
 				<div class="list card">
 
-	<a href="#" class="item item-icon-right" ng-repeat="invoice in invoices" >Rechnungsdatum: {{invoice.statementDate2}}
+	<div ng-click="openModal()" class="item item-icon-right" ng-repeat="invoice in invoices" >Rechnungsdatum: {{invoice.statementDate2}}
 	Rechnungsbetrag:					{{invoice.balanceDue}} {{account.currency}}
-	Zahlbar bis: 					{{invoice.dueDate}} 	<i class="icon ion-arrow-right-c"></i></a>
+	Zahlbar bis: 					{{invoice.dueDate}} 	<i class="icon ion-arrow-right-c"></i></div>
 
 </div>
 		</ion-item>
