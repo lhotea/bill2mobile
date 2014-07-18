@@ -1,22 +1,64 @@
-		var app = angular.module('myApp', ['ionic']);
-		app.config(function($stateProvider, $urlRouterProvider) {
+		
+var app = angular.module('myApp', ['ionic']);
+app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('login', {
     url: '/',
     templateUrl: 'partials/login.html',
-	  controller: 'loginController'
+	controller: 'loginController',
+	resolve: {
+	 customer: function(customerService) {
+	  return customerService.getCustomer()
+	 },
+	 debug: function(debugService) {
+	  return debugService.getDebug()
+	 } 
+	}
   })
     .state('account', {
     url: '/account',
     templateUrl: 'partials/account.html',
-	controller: 'accountController'
-  });
+	controller: 'accountController',
+	resolve: {
+	 customer: function(customerService) {
+	  return customerService.getCustomer()
+	 },
+	 debug: function(debugService) {
+	  return debugService.getDebug()
+	 } 
+	}
+
+});
   $urlRouterProvider.otherwise('/');
   
 });
-		
-		app.controller('sessionController', function($scope, $http) {});
-		app.controller('loginController', function($scope, $http) {
+
+/* services to share data between views */
+
+	app.service ('customerService', function($q) {
+		return {
+		 customer: {},
+		 getCustomer: function() {
+		  return this.customer
+		 }
+		}
+	});
+
+	app.service ('debugService', function($q) {
+		return {
+		 debug: {
+		  request: {},
+		  response: {}
+		 },
+		 getDebug: function() {
+		  return this.debug
+		 },
+		}
+	});
+
+/* controllers */
+
+		app.controller('loginController', function($scope, customer, debug, $http) {
             $scope.cred = {};
 			
 			$scope.login = function() {
@@ -28,9 +70,10 @@
 					},
 					version: '1.1.7'
 				};
-
+				
 				$scope.request = JSON.stringify(request);
-				$scope.$parent.request = $scope.request;
+//DEBUG INFO
+                debug.request = $scope.request;
 
 				$http({
 					method: 'PUT',
@@ -42,9 +85,11 @@
 					// when the response is available
 
 					$scope.response = JSON.stringify(data);
-					$scope.$parent.response = $scope.response;
+//DEBUG INFO
+                    debug.response = $scope.response;
+					
 					var myaccount = angular.isDefined(data.customer) ? data.customer.accounts[0] : {};
-					$scope.$parent.account = {
+					customer.account = {
 						account_number: myaccount.id,
 						currency: "CHF",
 						bill_lname: myaccount.lastName,
@@ -58,18 +103,25 @@
 						open_balance: myaccount.balanceDue,
 						unbilled_usage: myaccount.unbilledDue
 					};
-					$scope.$parent.invoices = myaccount.invoices;
+					customer.invoices = myaccount.invoices;
                     window.location.href ="#/account";
 				}).
 				error(function(data, status, headers, config) {
 					// called asynchronously if an error occurs
 					// or server returns response with an error status.
 					$scope.response = JSON.stringify(data);
-				});
+//DEBUG INFO
+                    debug.response = $scope.response;
+
+             });
               
 			};
 		});
-		app.controller('accountController', function($scope) {
-
+		app.controller('accountController', function($scope, customer, debug) {
+         $scope.account = customer.account;
+		 $scope.invoices = customer.invoices;
+		 $scope.request = debug.request;
+		 $scope.response = debug.response;
+		 
 		});
 	
