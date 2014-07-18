@@ -37,7 +37,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 	app.service ('customerService', function($q) {
 		return {
-		 customer: {},
+		 customer: {
+		  currency: 'CHF'
+		 },
 		 getCustomer: function() {
 		  return this.customer
 		 }
@@ -88,24 +90,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 //DEBUG INFO
                     debug.response = $scope.response;
 					
-					var myaccount = angular.isDefined(data.customer) ? data.customer.accounts[0] : {};
-					customer.account = {
-						account_number: myaccount.id,
-						currency: "CHF",
-						bill_lname: myaccount.lastName,
-						bill_fname: myaccount.firstName,
-						bill_title: myaccount.title,
-						bill_address1: myaccount.address,
-						bill_address2: "",
-						bill_address3: "",
-						bill_zip: myaccount.zip,
-						bill_city: myaccount.city,
-						open_balance: myaccount.balanceDue,
-						unbilled_usage: myaccount.unbilledDue
-					};
-					customer.invoices = myaccount.invoices;
-                    window.location.href ="#/account";
-				}).
+					if ( angular.isDefined(data.customer) && data.loginInfo == "authenticated"  )
+					{
+					 customer.account = data.customer.accounts[0];
+                     window.location.href ="#/account";
+					}
+                }).
 				error(function(data, status, headers, config) {
 					// called asynchronously if an error occurs
 					// or server returns response with an error status.
@@ -119,7 +109,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		});
 		app.controller('accountController', function($scope, customer, debug) {
          $scope.account = customer.account;
-		 $scope.invoices = customer.invoices;
+		 $scope.invoices = customer.account.invoices;
 		 $scope.request = debug.request;
 		 $scope.response = debug.response;
 		 

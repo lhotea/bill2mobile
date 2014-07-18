@@ -5,7 +5,7 @@
 <div class="buttons">
     <button class="button" >Kontoliste</button>
   </div>
-  <h1 class="title">{{account.account_number}}</h1>
+  <h1 class="title">{{account.id}}</h1>
   <div class="buttons">
     <button class="button">Bloom</button>
   </div>
@@ -18,11 +18,9 @@
 			<p>Rechnungsadresse</p>
 			<div class="list card">
 			<div class="item">
-				<p>{{ account.bill_title }} {{ account.bill_fname }} {{ account.bill_lname }}</p>
-				<p>{{ account.bill_address1 }}</p>
-				<p>{{ account.bill_address2 }}</p>
-				<p>{{ account.bill_address3 }}</p>
-				<p>{{ account.bill_zip }} {{ account.bill_city }}</p>
+				<p>{{ account.title }} {{ account.firstName }} {{ account.lastName }}</p>
+				<p>{{ account.address }}</p>
+				<p>{{ account.zip }} {{ account.city }}</p>
 			</div>
 			</div>
     </ion-item>
@@ -33,7 +31,7 @@
 				
 			<div class="list card">
 				
-					<a href="#" class="item item-icon-right">Offener Gesamtbetrag {{account.open_balance}} {{account.currency}} <i class="icon ion-help-circled">Info</i> </a>
+					<a href="#" class="item item-icon-right">Offener Gesamtbetrag {{account.balanceDue}} {{account.currency}} <i class="icon ion-help-circled">Info</i> </a>
 </div>				
     </ion-item>
 	<ion-item>
@@ -41,7 +39,7 @@
 			<p>Laufende Kosten</p>
 				<div class="list card">
 
-	<a href="#" class="item item-icon-right">Nutzungsgebühren  {{account.unbilled_usage}} {{account.currency}} <i class="icon ion-arrow-right-c"></i></a>
+	<a href="#" class="item item-icon-right">Nutzungsgebühren  {{account.unbilledDue}} {{account.currency}} <i class="icon ion-arrow-right-c"></i></a>
 </div>
     </ion-item>
 	<ion-item>
@@ -49,7 +47,7 @@
 				<div class="list card">
 
 	<a href="#" class="item item-icon-right" ng-repeat="invoice in invoices" >Rechnungsdatum: {{invoice.statementDate2}}
-	Rechnungsbetrag:					{{invoice.balanceDue}} CHF
+	Rechnungsbetrag:					{{invoice.balanceDue}} {{account.currency}}
 	Zahlbar bis: 					{{invoice.dueDate}} 	<i class="icon ion-arrow-right-c"></i></a>
 
 </div>
@@ -58,7 +56,6 @@
 
 
 
-			<div id="cred">{{username}}:{{password}}</div>
 			<div id="request">Request:
 				<br/>{{request}}
 			</div>
