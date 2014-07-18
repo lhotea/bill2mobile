@@ -1,5 +1,6 @@
 
 		<ion-view title="bill2mobile">
+			<ion-nav-bar class="bar-positive nav-title-slide-ios7"></ion-nav-bar>
 			<ion-content>
 				<div class="list">
 					<label class="item item-input">
@@ -15,14 +16,17 @@
 				<button ng-click="login()" class="button button-block button-light">
 					Login
 				</button>
+				<input type="checkbox" ng-model="cred.debug">Debug</input>
 
+			<div ng-show="cred.debug">
 				<div id="request">Request:
 					<br/>{{request}}
 				</div>
 				<div id="response">Response:
 					<br/>{{response}}
 				</div>
-			
+			</div>
+				
 </ion-content>
 		</ion-view>
 		

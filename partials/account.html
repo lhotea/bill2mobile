@@ -46,7 +46,7 @@
 			<p>Rechnungen</p>
 				<div class="list card">
 
-	<div ng-click="openModal()" class="item item-icon-right" ng-repeat="invoice in invoices" >Rechnungsdatum: {{invoice.statementDate2}}
+	<div ng-click="openModal({{$index}})" class="item item-icon-right" ng-repeat="invoice in invoices" >Rechnungsdatum: {{invoice.statementDate2}}
 	Rechnungsbetrag:					{{invoice.balanceDue}} {{account.currency}}
 	Zahlbar bis: 					{{invoice.dueDate}} 	<i class="icon ion-arrow-right-c"></i></div>
 
@@ -55,6 +55,7 @@
 	</ion-list>
 
 
+	<div ng-show="{{debug}}">
 
 			<div id="request">Request:
 				<br/>{{request}}
@@ -62,6 +63,7 @@
 			<div id="response">Response:
 				<br/>{{response}}
 			</div>
+	</div>
 </ion-content>
 		
 

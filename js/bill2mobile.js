@@ -50,7 +50,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		return {
 		 debug: {
 		  request: {},
-		  response: {}
+		  response: {},
+		  debug: 0
 		 },
 		 getDebug: function() {
 		  return this.debug
@@ -61,7 +62,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 /* controllers */
 
 		app.controller('loginController', function($scope, customer, debug, $http) {
-            $scope.cred = {};
+            $scope.cred = {
+			 username: "arnaud.lhote@hispeed.ch",
+			 password: "minisoph70"
+			};
 			
 			$scope.login = function() {
 				var request = {
@@ -76,6 +80,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				$scope.request = JSON.stringify(request);
 //DEBUG INFO
                 debug.request = $scope.request;
+				debug.debug = $scope.cred.debug;
 
 				$http({
 					method: 'PUT',
@@ -109,8 +114,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		});
 		app.controller('accountController', function($scope, $ionicModal, customer, debug) {
          $scope.account = customer.account;
+		 $scope.account.currency = customer.currency;
 		 $scope.invoices = customer.account.invoices;
 		 $scope.request = debug.request;
+		 $scope.debug = debug.debug;
 		 $scope.response = debug.response;
 		 
 		 
@@ -121,7 +128,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		  $scope.modal = modal
 		 });
 		 
-		 $scope.openModal = function () {
+		 $scope.openModal = function (index) {
+		  $scope.invoice = $scope.invoices[index];
 		  $scope.modal.show();
 		 };
 
