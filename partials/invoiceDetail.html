@@ -1,0 +1,32 @@
+<div class="modal">
+	
+<ion-header-bar align-title="center" class="bar-light">
+	<div class="buttons">
+      <button class="button" ng-click="closeModal()">Zurück</button>	
+    </div>
+	<h1 class="title">Rechnungsdetail</h1>
+
+	</ion-header-bar>
+
+<ion-content>
+		<div class="list card">
+			<div class="item">
+				<p>Rechnungsdatum:             {{invoice.statementDate}}</p>
+				<p>Zahlbar bis:             {{invoice.dueDate}}</p>
+				<p>Rechnungsnummer:             {{invoice.id}}</p>
+				<p>Status:             {{invoice.invoiceStatus}}</p>
+			</div>
+			<div class="item">
+				<p>Verrechnete Gebühren:             {{invoice.newCharges}} {{account.currency}}</p>
+				<p>Zahlbar bis:             {{invoice.dueDate}}</p>
+				<p>Noch zu bezahlen:             {{invoice.balanceDue}} {{account.currency}}</p>
+			</div>
+			<div class="item">
+				<p>Originalrechnung ansehen (coming soon)</p>
+			</div>
+	     </div>
+
+
+</ion-content>
+	
+</div>
