@@ -1,6 +1,6 @@
 		var app = angular.module('myApp', ['ionic']);
-        $ionicPlatform.registerBackButtonAction(function () { /* do nothing */}, 100);
-		app.config(function($stateProvider, $urlRouterProvider) {
+ 		app.config(function($stateProvider, $urlRouterProvider) {
+
 			$stateProvider
 				.state('login', {
 					url: '',
@@ -41,8 +41,28 @@
 							return customerService.getCustomer();
 						}
 					}
-
-  });
+				})
+			.state('unbilledUsage' , {
+				url: '/unbilledUsage',
+				templateUrl: 'partials/unbilledUsage.html'
+			})
+			.state('settings' , {
+				url: '/settings',
+				templateUrl: 'partials/settings.html'
+			})
+			.state('openBalanceInfo' , {
+				url: '/openBalanceInfo',
+				templateUrl: 'partials/openBalanceInfo.html'
+			})
+			.state('help' , {
+				url: '/help',
+				templateUrl: 'partials/help.html'
+			})
+			.state('customerOverview' , {
+				url: '/customerOverview',
+				templateUrl: 'partials/customerOverview.html'
+			})
+			;
 			
 		//	$urlRouterProvider.otherwise('');
 
@@ -136,13 +156,15 @@
 			$scope.invoice = invoice;
 		});
 
-		app.controller('accountController', function($scope, $ionicModal, customer, debug) {
+		app.controller('accountController', function($scope, $ionicModal, $ionicPlatform, customer, debug) {
 			$scope.account = customer.account;
 			$scope.account.currency = customer.currency;
 			$scope.invoices = customer.account.invoices;
 			$scope.request = debug.request;
 			$scope.debug = debug.debug;
 			$scope.response = debug.response;
+			$ionicPlatform.registerBackButtonAction(function () { /* do nothing */}, 100);
+
 
 /*
 			$ionicModal.fromTemplateUrl('partials/invoiceDetail.html', {

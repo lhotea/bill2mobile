@@ -1,9 +1,6 @@
 
-		<ion-view title="account">
+		<ion-view title="account - {{account.id}}" hide-back-button=true >
 			
-<ion-header-bar align-title="left" class="bar-light">
-  <h1 class="title">{{account.id}}</h1>
-</ion-header-bar>
 
 <ion-content>
 
@@ -25,7 +22,7 @@
 				
 			<div class="list card">
 				
-					<a href="#" class="item item-icon-right">Offener Gesamtbetrag {{account.balanceDue}} {{account.currency}} <i class="icon ion-help-circled"></i> </a>
+					<a ui-sref="openBalanceInfo" class="item item-icon-right">Offener Gesamtbetrag {{account.balanceDue}} {{account.currency}} <i class="icon ion-help-circled"></i> </a>
 </div>				
     </ion-item>
 	<ion-item>
@@ -33,20 +30,23 @@
 			<p>Laufende Kosten</p>
 				<div class="list card">
 
-	<a href="#" class="item item-icon-right">Nutzungsgebühren  {{account.unbilledDue}} {{account.currency}} <i class="icon ion-arrow-right-c"></i></a>
+	<a ui-sref="unbilledUsage" class="item item-icon-right">Nutzungsgebühren  {{account.unbilledDue}} {{account.currency}} <i class="icon ion-arrow-right-c"></i></a>
 </div>
     </ion-item>
 	<ion-item>
 			<p>Rechnungen</p>
-				<ion-list>
+				<div class="list card">
 
-	<ion-item  class="item item-icon-right" ng-repeat="invoice in invoices" >
-		<a ui-sref="invoice({invoice: $index})">Rechnungsdatum: {{invoice.statementDate2}}
+		<ion-list>
+
+	<ion-item  ui-sref="invoice({invoice: $index})" class="item item-icon-right" ng-repeat="invoice in invoices" >
+		Rechnungsdatum: {{invoice.statementDate2}}
 	Rechnungsbetrag:					{{invoice.balanceDue}} {{account.currency}}
-	Zahlbar bis: 					{{invoice.dueDate}} 	<i class="icon ion-arrow-right-c"></i></a>
+	Zahlbar bis: 					{{invoice.dueDate}} 	<i class="icon ion-arrow-right-c"></i>
 
 </ion-item>>
 		</ion-list>
+					</div>
 		</ion-item>
 	</ion-list>
 
@@ -65,15 +65,15 @@
 
 <ion-footer-bar align-title="left" class="bar-light">
  <div class="tabs tabs-icon-top">
-    <a class="tab-item" href="#">
+    <a class="tab-item" ui-sref="customerOverview" ion-nav-animation="slide-in-up" >
       <i class="icon ion-social-usd"></i>
       Meine Rechnungen
     </a>
-    <a class="tab-item" href="#">
+    <a class="tab-item" ui-sref="settings" ion-nav-animation="slide-in-up">
       <i class="icon ion-android-mixer"></i>
       Einstellungen
     </a>
-    <a class="tab-item" href="#">
+    <a class="tab-item" ui-sref="help" ion-nav-animation="slide-in-up">
       <i class="icon ion-help-circled"></i>
       Hilfe
     </a>
