@@ -1,5 +1,5 @@
 		var app = angular.module('myApp', ['ionic']);
- 		app.config(function($stateProvider, $urlRouterProvider) {
+		app.config(function($stateProvider, $urlRouterProvider) {
 
 			$stateProvider
 				.state('login', {
@@ -164,6 +164,10 @@
 			$scope.debug = debug.debug;
 			$scope.response = debug.response;
 			$ionicPlatform.registerBackButtonAction(function () { /* do nothing */}, 100);
+			$ionicPlatform.onHardwareBackButton(function() {
+     event.preventDefault();
+     event.stopPropagation();
+  });
 
 
 /*
