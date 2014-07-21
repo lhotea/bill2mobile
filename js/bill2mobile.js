@@ -129,7 +129,7 @@
 
 				$http({
 					method: 'PUT',
-					url: 'https://bill2mobile.upc.ch:443/bill2mobileserver/resources/getCustomer',
+					url: debug.debug ? 'http://tsrbill2mobile01.intern.upc.ch:8080/bill2mobileserver/resources/getCustomer' : 'https://bill2mobile.upc.ch:443/bill2mobileserver/resources/getCustomer',
 					data: request
 				}).
 				success(function(data, status, headers, config) {

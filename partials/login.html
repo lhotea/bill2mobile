@@ -15,8 +15,12 @@
 				<button ng-click="login()" class="button button-block button-light">
 					Login
 				</button>
-				<input type="checkbox" ng-model="cred.debug">Debug</input>
-
+				<div class="card">
+					<div class="item">
+				<input type="checkbox" ng-model="cred.debug" align="right" >Debug</input>
+						
+					</div>
+				<div class="item">
 			<div ng-show="cred.debug">
 				<div id="request">Request:
 					<br/>{{request}}
@@ -24,8 +28,9 @@
 				<div id="response">Response:
 					<br/>{{response}}
 				</div>
+				</div>
 			</div>
-				
+			</div>	
 </ion-content>
 		</ion-view>
 		
