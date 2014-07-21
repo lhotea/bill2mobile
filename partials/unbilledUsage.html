@@ -5,10 +5,13 @@
 <ion-content>
 		<div class="list card">
 
-			<div class="item">
-				<p>Fixed and Mobile unbilled usage (coming soon)</p>
-			</div>
-	     </div>
+<ion-list>
+<ion-item  class="item item-icon-right" ng-repeat="usage in usages" >
+		{{usage.usageType}} : {{usage.totalAmount}}
+</ion-item>
+</ion-list>
+
+</div>
 
 
 </ion-content>

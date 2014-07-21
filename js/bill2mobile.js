@@ -44,7 +44,14 @@
 				})
 			.state('unbilledUsage' , {
 				url: '/unbilledUsage',
-				templateUrl: 'partials/unbilledUsage.html'
+				templateUrl: 'partials/unbilledUsage.html',
+					controller: 'usageController',
+					resolve: {
+						customer: function(customerService) {
+							return customerService.getCustomer();
+						}
+					}
+				
 			})
 			.state('settings' , {
 				url: '/settings',
@@ -154,6 +161,11 @@
 			$scope.account = customer.account;
 			$scope.account.currency = customer.currency;
 			$scope.invoice = invoice;
+		});
+		app.controller('usageController', function($scope, customer ) {
+			$scope.account = customer.account;
+			$scope.account.currency = customer.currency;
+			$scope.usages = customer.account.unbilled;
 		});
 
 		app.controller('accountController', function($scope, $ionicModal, $ionicPlatform, customer, debug) {
