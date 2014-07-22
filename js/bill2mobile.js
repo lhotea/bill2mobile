@@ -175,7 +175,10 @@
 			$scope.request = debug.request;
 			$scope.debug = debug.debug;
 			$scope.response = debug.response;
-			$ionicPlatform.registerBackButtonAction(function () { /*do nothing */ }, 1000);
+			$ionicPlatform.registerBackButtonAction(function () { /*do nothing */ 
+				event.preventDefault();
+     			event.stopPropagation();
+			}, 1000);
 			$ionicPlatform.onHardwareBackButton(function() {
      event.preventDefault();
      event.stopPropagation();
