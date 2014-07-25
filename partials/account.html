@@ -5,7 +5,7 @@
 
 		<ion-list>
 			<ion-item>
-				<p>Rechnungsadresse</p>
+				<h2>Rechnungsadresse</h2>
 				<div class="list card">
 					<div class="item">
 						<p>{{ account.title }} {{ account.firstName }} {{ account.lastName }}</p>
@@ -16,7 +16,7 @@
 			</ion-item>
 			<ion-item>
 
-				<p>Rechnungssaldo</p>
+				<h2>Rechnungssaldo</h2>
 
 
 				<div class="list card">
@@ -26,21 +26,22 @@
 			</ion-item>
 			<ion-item>
 
-				<p>Laufende Kosten</p>
+				<h2>Laufende Kosten</h2>
 				<div class="list card">
 
-					<a ui-sref="unbilledUsage" class="item item-icon-right">Nutzungsgebühren  {{account.unbilledDue}} {{account.currency}} <i class="icon ion-arrow-right-c"></i></a>
+					<a ui-sref="unbilledUsage" class="item item-icon-right">Nutzungsgebühren  {{account.unbilledDue}} {{account.currency}} <i class="icon ion-ios7-telephone"></i></a>
 				</div>
 			</ion-item>
 			<ion-item>
-				<p>Mobile phones</p>
+				<h2>Mobile phones</h2>
 				<div class="list card">
 
 					<ion-list>
 
-						<ion-item ui-sref="mobile({mobile: $index})" class="item item-icon-left" ng-repeat="mobile in mobiles">
-							{{mobile.wallets[0].msisdn}}
+						<ion-item ui-sref="mobile({mobile: $index})" class="item item-icon-left item-icon-right" ng-repeat="mobile in mobiles">
 							<i class="icon ion-iphone"></i>
+							{{mobile.wallets[0].msisdn}}
+							<i class="icon ion-ios7-telephone"></i>
 
 						</ion-item>
 
@@ -50,7 +51,7 @@
 			</ion-item>
 
 			<ion-item>
-				<p>Rechnungen</p>
+				<h2>Rechnungen</h2>
 				<div class="list card">
 
 					<ion-list>
@@ -77,10 +78,10 @@
 	</ion-content>
 
 
-	<ion-footer-bar align-title="left" class="bar-light">
-		<div class="tabs tabs-icon-top">
+	<ion-footer-bar align-title="left" class="bar-dark tabs tabs-icon-only">
+		
 			<a class="tab-item" ui-sref="login" ion-nav-animation="slide-in-up">
-				<i class="icon ion-social-usd"></i>
+				<i class="icon ion-log-out"></i>
 				Logout
 			</a>
 			<a class="tab-item" ui-sref="settings" ion-nav-animation="slide-in-up">
@@ -91,6 +92,6 @@
 				<i class="icon ion-help-circled"></i>
 				Hilfe
 			</a>
-		</div>
+		
 	</ion-footer-bar>
 </ion-view>

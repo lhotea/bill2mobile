@@ -147,11 +147,18 @@ function($ionicPlatform) {
 		/* controllers */
 
 		app.controller('loginController', function($scope, customer, debug, $http, $state) {
+			
 			$scope.cred = {
+				username: "",
+				password: ""
+			 };
+			$scope.setDefaultUser = function() {
+			 $scope.cred = {
 				username: "arnaud.lhote@hispeed.ch",
 				password: "minisoph70"
+			 };
 			};
-
+			
 			$scope.login = function() {
 				var request = {
 					language: 'en',

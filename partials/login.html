@@ -1,24 +1,23 @@
 
 		<ion-view title="bill2mobile" hide-back-button=true >
 			<ion-content>
-				<div class="list">
+				<div class="list list-inset">
 					<label class="item item-input">
-						<span class="input-label">Username</span>
-						<input type="text" ng-model="cred.username">
+						<input type="text" ng-model="cred.username" placeholder="Username">
 					</label>
 					<label class="item item-input">
-						<span class="input-label">Password</span>
-						<input type="password" ng-model="cred.password">
+						<input type="password" ng-model="cred.password" placeholder="Password">
 					</label>
-				</div>
+				
 
-				<button ng-click="login()" class="button button-block button-light">
+				<button ng-click="login()" class="button button-block icon-right ion-chevron-right button-calm">
 					Login
 				</button>
-				<div class="card">
+				</div>
+					<div class="card">
 					<div class="item item-checkbox">
 						<label class="checkbox">
-				<input type="checkbox" ng-model="cred.debug"></input>
+				<input type="checkbox" ng-model="cred.debug" ng-click="setDefaultUser()"></input>
 					</label>
 					Debug 					</div>
 					<div class="item item-checkbox">
@@ -28,8 +27,9 @@
 					Use mockup
 					</div>
 				
-				<div class="item">
+				
 			<div ng-show="cred.debug">
+				<div class="item">
 				<div id="request">Request:
 					<br/>{{request}}
 				</div>
