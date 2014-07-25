@@ -12,15 +12,13 @@ function($ionicPlatform) {
       StatusBar.styleDefault();
     }
 	 
-	$ionicPlatform.registerBackButtonAction(function () { 
-	// do nothing 
-	}, 1); 
 			
-	$ionicPlatform.onHardwareBackButton(function() {
+/*	$ionicPlatform.onHardwareBackButton(function() {
             event.preventDefault();
             event.stopPropagation();
     });
-
+*/
+	  
 });
 		});
 		app.config(function($stateProvider, $urlRouterProvider) {
@@ -216,6 +214,10 @@ function($ionicPlatform) {
 			$scope.usages = customer.account.unbilled;
 		});
 		app.controller('accountController', function($scope, $ionicModal, $ionicPlatform, customer, debug) {
+			$ionicPlatform.registerBackButtonAction(function () { 
+	// do nothing 
+	}, 1); 
+	
 			$scope.account = customer.account;
 			$scope.account.currency = customer.currency;
 			$scope.invoices = customer.account.invoices;
