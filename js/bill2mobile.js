@@ -1,4 +1,28 @@
 		var app = angular.module('myApp', ['ionic']);
+		app.run(
+function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+   if(window.cordova && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    }
+    if(window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+    }
+	 
+	$ionicPlatform.registerBackButtonAction(function () { 
+	// do nothing 
+	}, 1000); 
+			
+	$ionicPlatform.onHardwareBackButton(function() {
+            event.preventDefault();
+            event.stopPropagation();
+    });
+
+});
+		});
 		app.config(function($stateProvider, $urlRouterProvider) {
 
 			$stateProvider
@@ -199,13 +223,8 @@
 			$scope.request = debug.request;
 			$scope.debug = debug.debug;
 			$scope.response = debug.response;
-			$ionicPlatform.registerBackButtonAction(function () { /*do nothing */ 
-				event.preventDefault();
-     			event.stopPropagation();
-			}, 1000);
-			$ionicPlatform.onHardwareBackButton(function() {
-     event.preventDefault();
-     event.stopPropagation();
+
+			
   });
 
 
@@ -232,4 +251,4 @@
 			});
 */
 
-		});
+	
