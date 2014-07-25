@@ -13,12 +13,16 @@
 			<div class="item">
 		<ion-list>
 
-	<ion-item  class="item range range-positive" ng-repeat="promotion in mobile.promotions" >
-	<p>{{promotion.name}}:</p>	
-     <i class="icon ion-battery-empty"></i>   
- 	<input type="range" disabled name="{{promotion.maximumValue}}" min="0" max="{{promotion.maximumValue}}" value="{{promotion.remainingUnits}}">
+	<ion-item ng-repeat="promotion in mobile.promotions" >
+	<p>{{promotion.name}}:</p>
+    <div class="item range range-positive" >
+		
+		<i class="icon ion-battery-empty"></i>   
+ 	  <input type="range" disabled name="{{promotion.maximumValue}}" min="0" max="{{promotion.maximumValue}}" value="{{promotion.remainingUnits}}">
      <i class="icon ion-battery-full"></i>
-    </ion-item>
+		</div>
+
+		</ion-item>
 
 					
 		</ion-list>
