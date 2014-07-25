@@ -14,7 +14,7 @@ function($ionicPlatform) {
 	 
 	$ionicPlatform.registerBackButtonAction(function () { 
 	// do nothing 
-	}, 1000); 
+	}, 1); 
 			
 	$ionicPlatform.onHardwareBackButton(function() {
             event.preventDefault();
