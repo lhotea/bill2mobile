@@ -1,57 +1,71 @@
+<ion-view title="account - {{account.id}}" hide-back-button=true>
 
-		<ion-view title="account - {{account.id}}" hide-back-button=true >
-			
 
-<ion-content>
-
-	<ion-list>
-	<ion-item>
-			<p>Rechnungsadresse</p>
-			<div class="list card">
-			<div class="item">
-				<p>{{ account.title }} {{ account.firstName }} {{ account.lastName }}</p>
-				<p>{{ account.address }}</p>
-				<p>{{ account.zip }} {{ account.city }}</p>
-			</div>
-			</div>
-    </ion-item>
-	<ion-item>
-
-			<p>Rechnungssaldo</p>
-				
-				
-			<div class="list card">
-				
-					<a ui-sref="openBalanceInfo" class="item item-icon-right">Offener Gesamtbetrag {{account.balanceDue}} {{account.currency}} <i class="icon ion-help-circled"></i> </a>
-</div>				
-    </ion-item>
-	<ion-item>
-
-			<p>Laufende Kosten</p>
-				<div class="list card">
-
-	<a ui-sref="unbilledUsage" class="item item-icon-right">Nutzungsgebühren  {{account.unbilledDue}} {{account.currency}} <i class="icon ion-arrow-right-c"></i></a>
-</div>
-    </ion-item>
-	<ion-item>
-			<p>Rechnungen</p>
-				<div class="list card">
+	<ion-content>
 
 		<ion-list>
-
-	<ion-item  ui-sref="invoice({invoice: $index})" class="item item-icon-right" ng-repeat="invoice in invoices" >
-		Rechnungsdatum: {{invoice.statementDate2}}
-	Rechnungsbetrag:					{{invoice.balanceDue}} {{account.currency}}
-	Zahlbar bis: 					{{invoice.dueDate}} 	<i class="icon ion-arrow-right-c"></i>
-
-</ion-item>
-		</ion-list>
+			<ion-item>
+				<p>Rechnungsadresse</p>
+				<div class="list card">
+					<div class="item">
+						<p>{{ account.title }} {{ account.firstName }} {{ account.lastName }}</p>
+						<p>{{ account.address }}</p>
+						<p>{{ account.zip }} {{ account.city }}</p>
 					</div>
-		</ion-item>
-	</ion-list>
+				</div>
+			</ion-item>
+			<ion-item>
+
+				<p>Rechnungssaldo</p>
 
 
-	<div ng-show="{{debug}}">
+				<div class="list card">
+
+					<a ui-sref="openBalanceInfo" class="item item-icon-right">Offener Gesamtbetrag {{account.balanceDue}} {{account.currency}} <i class="icon ion-help-circled"></i> </a>
+				</div>
+			</ion-item>
+			<ion-item>
+
+				<p>Laufende Kosten</p>
+				<div class="list card">
+
+					<a ui-sref="unbilledUsage" class="item item-icon-right">Nutzungsgebühren  {{account.unbilledDue}} {{account.currency}} <i class="icon ion-arrow-right-c"></i></a>
+				</div>
+			</ion-item>
+			<ion-item>
+				<p>Mobile phones</p>
+				<div class="list card">
+
+					<ion-list>
+
+						<ion-item ui-sref="mobile({mobile: $index})" class="item item-icon-left" ng-repeat="mobile in mobiles">
+							{{mobile.wallets[0].msisdn}}
+							<i class="icon ion-iphone"></i>
+
+						</ion-item>
+
+
+					</ion-list>
+				</div>
+			</ion-item>
+
+			<ion-item>
+				<p>Rechnungen</p>
+				<div class="list card">
+
+					<ion-list>
+
+						<ion-item ui-sref="invoice({invoice: $index})" class="item item-icon-right" ng-repeat="invoice in invoices">
+							Rechnungsdatum: {{invoice.statementDate2}} Rechnungsbetrag: {{invoice.balanceDue}} {{account.currency}} Zahlbar bis: {{invoice.dueDate}}	<i class="icon ion-arrow-right-c"></i>
+
+						</ion-item>
+					</ion-list>
+				</div>
+			</ion-item>
+		</ion-list>
+
+
+		<div ng-show="{{debug}}">
 
 			<div id="request">Request:
 				<br/>{{request}}
@@ -59,24 +73,24 @@
 			<div id="response">Response:
 				<br/>{{response}}
 			</div>
-	</div>
-</ion-content>
-		
+		</div>
+	</ion-content>
 
-<ion-footer-bar align-title="left" class="bar-light">
- <div class="tabs tabs-icon-top">
-    <a class="tab-item" ui-sref="login" ion-nav-animation="slide-in-up" >
-      <i class="icon ion-social-usd"></i>
-      Logout
-    </a>
-    <a class="tab-item" ui-sref="settings" ion-nav-animation="slide-in-up">
-      <i class="icon ion-android-mixer"></i>
-      Einstellungen
-    </a>
-    <a class="tab-item" ui-sref="help" ion-nav-animation="slide-in-up">
-      <i class="icon ion-help-circled"></i>
-      Hilfe
-    </a>
-  </div>
-</ion-footer-bar>
-		</ion-view>
+
+	<ion-footer-bar align-title="left" class="bar-light">
+		<div class="tabs tabs-icon-top">
+			<a class="tab-item" ui-sref="login" ion-nav-animation="slide-in-up">
+				<i class="icon ion-social-usd"></i>
+				Logout
+			</a>
+			<a class="tab-item" ui-sref="settings" ion-nav-animation="slide-in-up">
+				<i class="icon ion-android-mixer"></i>
+				Einstellungen
+			</a>
+			<a class="tab-item" ui-sref="help" ion-nav-animation="slide-in-up">
+				<i class="icon ion-help-circled"></i>
+				Hilfe
+			</a>
+		</div>
+	</ion-footer-bar>
+</ion-view>

@@ -69,6 +69,20 @@
 				url: '/customerOverview',
 				templateUrl: 'partials/customerOverview.html'
 			})
+			.state('mobile' , {
+				url: '/mobileDetail/:mobile',
+				templateUrl: 'partials/mobileDetail.html',
+					controller: 'mobileController',
+					resolve: {
+						mobile: function(customerService,$stateParams) {
+							return customerService.getMobile($stateParams.mobile);
+						},
+						customer: function(customerService) {
+							return customerService.getCustomer();
+						}
+					}
+			})
+
 			;
 			
 		//	$urlRouterProvider.otherwise('');
@@ -87,7 +101,11 @@
 				},
 				getInvoice: function(index) {
 					return this.customer.account.invoices[index];
+				},
+				getMobile: function(index) {
+					return this.customer.account.mobiles[index];
 				}
+
 			};
 		});
 
@@ -126,10 +144,11 @@
 				//DEBUG INFO
 				debug.request = $scope.request;
 				debug.debug = $scope.cred.debug;
+				debug.mockup = $scope.cred.mockup;
 
 				$http({
 					method: 'PUT',
-					url: debug.debug ? 'http://demo3527422.mockable.io/bill2mobileserver/resources/getCustomer' : 'https://bill2mobile.upc.ch:443/bill2mobileserver/resources/getCustomer',
+					url: debug.mockup ? 'http://demo3527422.mockable.io/bill2mobileserver/resources/getCustomer' : 'https://bill2mobile.upc.ch:443/bill2mobileserver/resources/getCustomer',
 					data: request
 				}).
 				success(function(data, status, headers, config) {
@@ -162,16 +181,21 @@
 			$scope.account.currency = customer.currency;
 			$scope.invoice = invoice;
 		});
-		app.controller('usageController', function($scope, customer ) {
+		app.controller('mobileController', function($scope, customer, mobile ) {
+			$scope.account = customer.account;
+			$scope.account.currency = customer.currency;
+			$scope.mobile = mobile;
+		});
+       app.controller('usageController', function($scope, customer ) {
 			$scope.account = customer.account;
 			$scope.account.currency = customer.currency;
 			$scope.usages = customer.account.unbilled;
 		});
-
 		app.controller('accountController', function($scope, $ionicModal, $ionicPlatform, customer, debug) {
 			$scope.account = customer.account;
 			$scope.account.currency = customer.currency;
 			$scope.invoices = customer.account.invoices;
+			$scope.mobiles = customer.account.mobiles;
 			$scope.request = debug.request;
 			$scope.debug = debug.debug;
 			$scope.response = debug.response;
