@@ -21,4 +21,5 @@
 <preference name="fullscreen" value="true" />
 <access origin="http://upc.ch" subdomains="true" />
 <access origin="http://mockable.io" subdomains="true" />
+<access origin="*" />
 </widget>
