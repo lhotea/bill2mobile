@@ -3,8 +3,8 @@
 
 	<ion-content>
 
-		<ion-list>
-			<ion-item>
+		<ion-list >
+			<ion-item class="transparent">
 				<h2>Rechnungsadresse</h2>
 				<div class="list card">
 					<div class="item">
@@ -14,7 +14,7 @@
 					</div>
 				</div>
 			</ion-item>
-			<ion-item>
+			<ion-item class="transparent">
 
 				<h2>Rechnungssaldo</h2>
 
@@ -24,7 +24,7 @@
 					<a ui-sref="openBalanceInfo" class="item item-icon-right">Offener Gesamtbetrag {{account.balanceDue}} {{account.currency}} <i class="icon ion-help-circled"></i> </a>
 				</div>
 			</ion-item>
-			<ion-item>
+			<ion-item class="transparent">
 
 				<h2>Laufende Kosten</h2>
 				<div class="list card">
@@ -32,7 +32,7 @@
 					<a ui-sref="unbilledUsage" class="item item-icon-right">Nutzungsgebühren  {{account.unbilledDue}} {{account.currency}} <i class="icon ion-ios7-telephone"></i></a>
 				</div>
 			</ion-item>
-			<ion-item>
+			<ion-item class="transparent">
 				<h2>Mobile phones</h2>
 				<div class="list card">
 
@@ -50,7 +50,7 @@
 				</div>
 			</ion-item>
 
-			<ion-item>
+			<ion-item class="transparent">
 				<h2>Rechnungen</h2>
 				<div class="list card">
 
@@ -78,7 +78,7 @@
 	</ion-content>
 
 
-	<ion-footer-bar align-title="left" class="bar-dark tabs tabs-icon-only">
+	<ion-footer-bar align-title="left" class="bar-stable tabs tabs-icon-only">
 		
 			<a class="tab-item" ui-sref="login" ion-nav-animation="slide-in-up">
 				<i class="icon ion-log-out"></i>
