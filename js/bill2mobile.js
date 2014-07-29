@@ -22,13 +22,22 @@ function($ionicPlatform) {
 });
 */	
 	app.run(function($rootScope, $ionicPlatform, $ionicSideMenuDelegate, $state) { 
-       $ionicPlatform.onHardwareBackButton(function (e) {
+ 
+		document.addEventListener("backbutton", onBackKeyDown, false);
+ 
+		$ionicPlatform.onHardwareBackButton(onBackKeyDown,101);
+
+	});
+
+
+    // Handle the back button
+    //
+    function onBackKeyDown(e) {
 		   alert("Wanna go back ?");
 		   e.preventDefault();
 		   e.stopPropagation();
-	   },101);
+	}
 
-		});
 		app.config(function($stateProvider, $urlRouterProvider) {
 
 			$stateProvider
