@@ -3,7 +3,7 @@
 function($ionicPlatform) {
   $ionicPlatform.ready(function() {
 			
-	$ionicPlatform.onHardwareBackButton(function() {
+	$ionicPlatform.onHardwareBackButton(function(event) {
 		   alert("Wanna go back ?");
             event.preventDefault();
             event.stopPropagation();
