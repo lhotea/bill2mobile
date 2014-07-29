@@ -1,43 +1,20 @@
 		var app = angular.module('myApp', ['ionic']);
-/*		app.run(
+		app.run(
 function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-   if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if(window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-	 
 			
-/*	$ionicPlatform.onHardwareBackButton(function() {
+	$ionicPlatform.onHardwareBackButton(function() {
+		   alert("Wanna go back ?");
             event.preventDefault();
             event.stopPropagation();
     });
 
 	  
 });
-*/	
-	app.run(function($rootScope, $ionicPlatform, $ionicSideMenuDelegate, $state) { 
+});
+			
+	
  
-		document.addEventListener("backbutton", onBackKeyDown, false);
- 
-		$ionicPlatform.onHardwareBackButton(onBackKeyDown,101);
-
-	});
-
-
-    // Handle the back button
-    //
-    function onBackKeyDown(e) {
-		   alert("Wanna go back ?");
-		   e.preventDefault();
-		   e.stopPropagation();
-	}
-
 		app.config(function($stateProvider, $urlRouterProvider) {
 
 			$stateProvider
