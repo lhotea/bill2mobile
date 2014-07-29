@@ -1,5 +1,5 @@
 		var app = angular.module('myApp', ['ionic']);
-		app.run(
+/*		app.run(
 function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -17,9 +17,17 @@ function($ionicPlatform) {
             event.preventDefault();
             event.stopPropagation();
     });
-*/
+
 	  
 });
+*/	
+	app.run(function($rootScope, $ionicPlatform, $ionicSideMenuDelegate, $state) { 
+       $ionicPlatform.onHardwareBackButton(function (e) {
+		   alert("Wanna go back ?");
+		   e.preventDefault();
+		   e.stopPropagation();
+	   },101);
+
 		});
 		app.config(function($stateProvider, $urlRouterProvider) {
 
