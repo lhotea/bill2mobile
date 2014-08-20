@@ -1,9 +1,10 @@
 function onLoad() {
- document.addEventListener("deviceready", onDeviceReady, false);
+    document.addEventListener("backbutton", onBackKeyPress, true);
+	document.addEventListener("deviceready", onDeviceReady, false);
 }
 
 function onDeviceReady() {
-            document.addEventListener("backbutton", onBackKeyPress, false);
+	navigator.app.overrideBackbutton(true);
 }
 
 function onBackKeyPress(e) {
