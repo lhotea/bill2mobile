@@ -1,10 +1,20 @@
-		var app = angular.module('myApp', ['ionic']);
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+            document.addEventListener("backbutton", onBackKeyPress, false);
+}
+
+function onBackKeyPress() {
+		   alert("Wanna go back (1)?");
+                    return false;
+}
+
+var app = angular.module('myApp', ['ionic']);
 		app.run(
 function($ionicPlatform) {
   $ionicPlatform.ready(function() {
 			
 	$ionicPlatform.onHardwareBackButton(function(event) {
-		   alert("Wanna go back ?");
+		   alert("Wanna go back (2)?");
             event.preventDefault();
             event.stopPropagation();
     });
