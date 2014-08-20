@@ -1,11 +1,3 @@
-function onLoad() {
-    document.addEventListener("backbutton", onBackKeyPress, true);
-	document.addEventListener("deviceready", onDeviceReady, false);
-}
-
-function onDeviceReady() {
-	navigator.app.overrideBackbutton(true);
-}
 
 function onBackKeyPress(e) {
 		alert("Wanna go back (1)?");
@@ -15,20 +7,14 @@ function onBackKeyPress(e) {
 }
 
 var app = angular.module('myApp', ['ionic']);
-/*		app.run(
+app.run(
 function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-			
-	$ionicPlatform.onHardwareBackButton(function(event) {
-		   alert("Wanna go back (2)?");
-            event.preventDefault();
-            event.stopPropagation();
-    });
-
+  document.addEventListener("backbutton", onBackKeyPress, true);
 	  
 });
 });
-*/
+
 			
 	
  
