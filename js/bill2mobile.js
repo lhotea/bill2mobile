@@ -1,11 +1,16 @@
-document.addEventListener("deviceready", onDeviceReady, false);
+function onLoad() {
+ document.addEventListener("deviceready", onDeviceReady, false);
+}
+
 function onDeviceReady() {
             document.addEventListener("backbutton", onBackKeyPress, false);
 }
 
-function onBackKeyPress() {
-		   alert("Wanna go back (1)?");
-                    return false;
+function onBackKeyPress(e) {
+		alert("Wanna go back (1)?");
+		e.preventDefault();
+	    e.stopPropagation();
+        return false;
 }
 
 var app = angular.module('myApp', ['ionic']);
