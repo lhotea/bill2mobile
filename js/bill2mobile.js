@@ -9,7 +9,7 @@ function onBackKeyPress() {
 }
 
 var app = angular.module('myApp', ['ionic']);
-		app.run(
+/*		app.run(
 function($ionicPlatform) {
   $ionicPlatform.ready(function() {
 			
@@ -22,6 +22,7 @@ function($ionicPlatform) {
 	  
 });
 });
+*/
 			
 	
  
